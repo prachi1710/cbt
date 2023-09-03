@@ -1,15 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 body {
-    font-family: 'Roboto Slab', serif;
+    /* font-family: 'Signika', sans-serif; */
+    font-family: 'Great Vibes', cursive;
     margin: 0;
     padding: 0;
-    /* background: linear-gradient(135deg, #f38181, #fce38a, #eaffd0); */
-
-    /* background: linear-gradient(#e66465, #9198e5);
-    background: linear-gradient(#f38486, #c0c9f0); */
-    /* background: linear-gradient(45deg, #f78ca0, #feb2a8, #84fab0, #8fd3f4, #a0c4ff); */
-    /* background: radial-gradient(#59253A, #78244C); */
-    background: #2D283E;
-   
+    background-color: black; 
+    background-image: url("/images/welcome.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     max-height: 100vh;
 }
 
@@ -20,7 +21,10 @@ body {
     align-items: center;
     height: 100vh;
 }
-
+h1{
+    font-family: 'Great Vibes', cursive;
+    font-size: 100px;
+}
 .h1 {
 
     /* background: -webkit-linear-gradient(blue, red); */
@@ -29,11 +33,33 @@ body {
     -webkit-text-fill-color: transparent; */
     color: #802BB1;
     font-size: 35px;
+    font-family: 'Great Vibes', cursive;
     /* transition: transform 0.5s ease-in-out; */
     
 }
+h1 span{
+    color:  lightseagreen;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-icon {
+    width: 80px; /* Adjust the width as needed */
+    height: 80px; /* Adjust the height as needed */
+    margin: 0px 0px;
+    margin-right: 10px; /* Adjust the spacing between the icon and text */
+  }
+
+
+  
 .h2{
     color: white;
+    font-family: 'Signika', sans-serif;
+    font-weight: 300;
 }
 
 .h1:hover, .h2:hover {
@@ -85,7 +111,9 @@ body {
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
-
+.blogimg{
+    height: 20%;
+}
 
 button {
     padding: 12px 24px;

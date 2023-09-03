@@ -2,82 +2,385 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" type="text/css" href="/public/css/index.css"> -->
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" type="text/css" href="/public/css/index.css"> -->
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css">
 
-    <title>Personal Blogs</title>
+
+  <title>blogCanvas</title>
+  <link rel="icon" type="image/x-icon" href="../images/blogCanvas.ico">
 </head>
 
 <body>
-    <div class="main">
-        <ul class="ul-main">
-            <li class="li-main"><a href="#home">Home</a></li>
-            <li class="li-main"><a href="#blogs">Blogs</a></li>
-            <li class="li-main"><a href="#contact">Contact</a></li>
-            <li class="li-main" style="float:right"><a class="active" href="#about">About</a></li>
-            <form action="/logout" method="get">
-                <button style="float: right;" class="active" id="logout" type="submit" value="logout">Logout</button>
-            </form>
-        </ul>
-        <h2>Create New Blog</h2>
-
-        <!-- Blog Form -->
-        <form action="/create-blog" method="post">
-            <div class="input">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" required placeholder="Enter Your Name">
-            </div>
-            <div class="input">
-                <label for="type">Type</label>
-                <input type="text" name="type" id="type" required placeholder="Enter Blog Type">
-            </div>
-            <div class="input">
-                <label for="topic">Topic</label>
-                <input type="text" name="topic" id="topic" required placeholder="Enter Blog Topic">
-            </div>
-            <div class="input">
-                <label for="content">Content</label>
-                <textarea name="content" id="content" required placeholder="Enter Blog Content"></textarea>
-            </div>
-            <div class="button">
-                <button id="create" type="submit" value="create">Create Blog</button>
-            </div>
+  <nav>
+    <div class="logo">
+      <img src="/images/blogCanvas.png" alt="Logo" class="logo-icon">
+      <!-- <h1 class="logo-text" style="color: white;">blogCanvas</h1> -->
+      <h3>blog<span>Canvas</span></h3>
+    </div>
+    <!-- <h1 style="color: white; ">blogCanvas</h1> -->
+    <ul class="navigation">
+      <div class="search-container">
+        <form action="/search" method="get">
+          <input type="text" placeholder="Search blogs..." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
         </form>
+      </div>
+      <li><a href="/index" class="nav-link" id="indexhome">Home</a></li>
+      <li><a href="#blogs" class="nav-link">Blogs</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li><a href="/dashboard" class="nav-link">My Profile</a></li>
+      <form action="/logout" method="get">
+        <button id="logout" type="submit" value="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+      </form>
+    </ul>
+    <!-- <button class="burger-menu" id="burger-menu">
+      <ion-icon class="bars" name="menu-outline"></ion-icon>
+    </button> -->
+  </nav>
+  <!-- <div class="header">
+    <ul class="ul-main">
+      <li class="li-main"><a href="#home">Home</a></li>
+      <li class="li-main"><a href="#blogs">Blogs</a></li>
+      <li class="li-main"><a href="#contact">Contact</a></li>
 
+      <li class="li-main" style="float:right"><a class="active" href="#about">My Profile</a></li>
 
-        <!-- Display Existing Blogs -->
-        <h2>Existing Blogs</h2>
-        <div class="blogs">
-            <ul class="ul-blogs">
-                <% blogs.forEach(blog=> { %>
-                    <li class="li-blogs">
-                        <strong>Name:</strong>
-                        <%= blog.name %><br>
-                            <strong>Type:</strong>
-                            <%= blog.type %><br>
-                                <strong>Topic:</strong>
-                                <%= blog.topic %><br>
-                                    <strong>Content:</strong><br>
-                                    <p>
-                                        <%= blog.content %>
-                                    </p>
+      <form action="/logout" method="get">
+        <button style="float: right;" class="active" id="logout" type="submit" value="logout">Logout</button>
+      </form>
+    </ul>
+  </div> -->
+  <section class="main">
+
+    <div class="createblogbtn">
+      <button id="createblog"><i class="fa fa-plus" aria-hidden="true"></i> Create New Blog</button>
+    </div>
+
+    <!-- Blog Form -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal-container">
+        <form action="/create-blog" method="post" id="createblogform">
+          <div class="inputs">
+            <input type="text" name="name" id="name" required placeholder="" autocomplete="new-name">
+            <label>Name</label>
+          </div>
+          <div class="inputs">
+            <input type="text" name="type" id="type" required placeholder="" autocomplete="new-type">
+            <label>Type</label>
+          </div>
+          <div class="inputs">
+            <input type="text" name="topic" id="topic" required placeholder="" autocomplete="new-topic">
+            <label>Topic</label>
+          </div>
+          <div class="inputs">
+            <textarea name="content" id="content" required placeholder="" autocomplete="new-content"></textarea>
+            <label>Content</label>
+          </div>
+          <div class="button">
+            <button id="create" type="submit" value="create">Create Blog</button>
+          </div>
+        </form>
+        <span class="modal-close" id="modalClose">&times;</span>
+      </div>
+    </div>
     
-                                    <!-- Update Button -->
-                                    <div class="button-container">
-                                        <form action="/update-blog/<%= blog.id %>" method="get">
-                                          <button id="update" type="submit">Update</button>
-                                        </form>
-                                        <form action="/delete-blog/<%= blog.id %>" method="post">
-                                          <button id="delete" type="submit">Delete</button>
-                                        </form>
-                                      </div>
-                    </li>
-                    <% }) %>
-            </ul>
-        </div>
-       
-</body>
+  </section>
 
+
+  <section class="main">
+    <!-- Display Existing Blogs -->
+    <h2 id="blogs">Existing Blogs</h2>
+    <div class="blogs">
+      <ul class="ul-blogs">
+        <% blogs.forEach(blog=> { %>
+          <li class="li-blogs">
+            <strong>Name:</strong>
+            <%= blog.name %><br>
+              <strong>Type:</strong>
+              <%= blog.type %><br>
+                <strong>Topic:</strong>
+                <%= blog.topic %><br>
+                  <strong>Content:</strong><br>
+                  <p>
+                    <%= blog.content %>
+                  </p>
+                  <button class="like-btn" data-blog-id="<%= blog.id %>">🤍Like</button>
+                  <span class="like-count">
+                    <%= blog.likes %>
+                  </span>
+                  <!-- <div class="emoji-picker" data-blog-id="<%= blog.id %>">
+                    <span class="emoji" data-emoji="❤️">❤️</span>
+                    <span class="emoji" data-emoji="👍">👍</span>
+                    <span class="emoji" data-emoji="😊">😊</span>
+                     Add more emojis as needed -->
+                  <!-- </div> -->
+                  <button class="view-comments-btn" data-blog-id="<%= blog.id %>">💬Comments</button>
+                  <button class="share-btn" data-blog-id="<%= blog.id %>">🚀Share</button>
+
+                  <!-- Comments Section -->
+                  <div class="comments-section" data-blog-id="<%= blog.id %>">
+                    <!-- Existing comments will be displayed here -->
+                  </div>
+
+                  <!-- Comment Form -->
+                  <form class="comment-form" data-blog-id="<%= blog.id %>">
+                    <input class="text" type="text" name="commenterName" placeholder="Your Name" required>
+                    <textarea class="area" name="commentText" placeholder="Your Comment" required></textarea>
+                    <button class="submit-comment" type="submit">Submit Comment</button>
+                  </form>
+                  <!-- Update Button -->
+
+
+                  <div class="button-container">
+                    <form action="/update-blog/<%= blog.id %>" method="get">
+                      <button id="update" type="submit">Update</button>
+                    </form>
+                    <form action="/delete-blog/<%= blog.id %>" method="get">
+                      <button id="delete" type="submit">Delete</button>
+                    </form>
+                  </div>
+          </li>
+          <% }) %>
+      </ul>
+    </div>
+  </section>
+  <!-- <section id="#contact">Footer Example 4</section>
+  <footer class="footer-distributed">
+
+    <div class="footer-left">
+
+      <h3>blog<span>Canvas</span></h3>
+
+      <p class="footer-links">
+        <a href="#" class="link-1">Home</a>
+
+        <a href="#blogs">Blogs</a>
+
+        <a href="#">Faq</a>
+
+        <a href="#contact">Contact</a>
+      </p>
+
+      <p class="footer-company-name">blogCanvas © 2023</p>
+    </div>
+
+    <div class="footer-center">
+
+      <div>
+        <i class="fa fa-map-marker"></i>
+        <p><span>xyz</span> Kolkata,India</p>
+      </div>
+
+      <div>
+        <i class="fa fa-phone"></i>
+        <p>+35465767685</p>
+      </div>
+
+      <div>
+        <i class="fa fa-envelope"></i>
+        <p><a href="mailto:kumari.prachi1710@gmail.com">Send Mail</a></p>
+      </div>
+
+    </div>
+
+    <div class="footer-right">
+
+      <p class="footer-company-about">
+        <span>About</span>
+        Discover a vibrant blogging world where you can log in, write your own blogs, and easily manage them. Connect with others by reading and commenting on their posts. Create your unique profile with a picture to make it truly yours. It's a place to express, connect, and explore through the power of words and images. Join us and start sharing your stories today!
+      </p>
+
+      <div class="footer-icons">
+
+        <a href="https://www.facebook.com/profile.php?id=100006812265580"><i class="fa fa-facebook"></i></a>
+        <a href="https://twitter.com/Prachi51966081"><i class="fa fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/in/prachi-kumari-1b8184201/"><i class="fa fa-linkedin"></i></a>
+        <a href="https://github.com/prachi1710"><i class="fa fa-github"></i></a>
+
+      </div>
+
+    </div>
+
+  </footer> -->
+
+</body>
+<!-- Assuming there is a like button with the 'like-btn' class and data-blogId attribute -->
+<!-- Assuming there is a like button with the 'like-btn' class and data-blogId attribute -->
+<script>
+  const likeButtons = document.querySelectorAll('.like-btn');
+
+  // Retrieve and set the initial like count for each blog button
+  likeButtons.forEach(button => {
+    const blogId = button.dataset.blogId;
+    const storedLikeCount = sessionStorage.getItem(`likeCount_${blogId}`);
+    if (storedLikeCount) {
+      const clickCount = parseInt(storedLikeCount);
+      if (clickCount % 2 === 1) {
+        // button.classList.add('odd-click');
+        button.textContent = '💖';
+      }
+    }
+  });
+
+  likeButtons.forEach(button => {
+    const blogId = button.dataset.blogId;
+
+    button.addEventListener('click', () => {
+      // Retrieve the current like count from sessionStorage
+      const storedLikeCount = sessionStorage.getItem(`likeCount_${blogId}`);
+      let clickCount = 0;
+      if (storedLikeCount) {
+        clickCount = parseInt(storedLikeCount);
+      }
+
+      clickCount++;
+      sessionStorage.setItem(`likeCount_${blogId}`, clickCount);
+
+      // Make a fetch request to the server
+      fetch(`/like-blog/${blogId}`, {
+        method: 'POST',
+        credentials: 'include' // Include credentials (cookies) in the request
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Update the like count on the frontend based on the response
+          // button.textContent = `Like (${data.likeCount})`;
+          if (data.action === 'liked') {
+            // button.classList.add('odd-click');
+            button.textContent = 'Unlike';
+          } else if (data.action === 'unliked') {
+            // button.classList.remove('odd-click');
+            button.textContent = 'Like';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+  });
+
+  function convertToIST(date) {
+    const ISTOffset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
+    const utc = date.getTime() + date.getTimezoneOffset() * 60 * 1000;
+    const istTime = new Date(utc + ISTOffset);
+    return istTime;
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const home=document.getElementById('indexhome')
+    {
+      if (window.location.pathname === "/index") {
+        home.classList.add("active"); // Add the "active" class
+      }
+    }
+    const commentForms = document.querySelectorAll('.comment-form');
+    const likeButtons = document.querySelectorAll('.like-btn');
+    const commentButtons = document.querySelectorAll('.view-comments-btn');
+    const emojiPickers = document.querySelectorAll('.emoji-picker');
+
+    commentForms.forEach(form => {
+      form.hidden = true;
+    });
+
+    function displayComments(blogId) {
+      fetch(`/api/comments/${blogId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          const commentsSection = document.querySelector(`.comments-section[data-blog-id="${blogId}"]`);
+          commentsSection.innerHTML = '';
+
+          data.comments.forEach((comment) => {
+            const commentElement = document.createElement('div');
+            const utcDate = new Date(comment.comment_date);
+            const istDate = convertToIST(utcDate);
+            commentElement.innerHTML = `
+            <p><strong>${comment.commenter_name}</strong>: ${comment.comment_text}</p>
+            <small>${istDate.toLocaleString('en-IN')}</small>
+          `;
+            commentsSection.appendChild(commentElement);
+          });
+        })
+        .catch((error) => {
+          console.error('Error fetching comments:', error);
+        });
+    }
+
+    // Event listener for "View Comments" button
+    const viewCommentsButtons = document.querySelectorAll('.view-comments-btn');
+    viewCommentsButtons.forEach((button) => {
+      const blogId = button.dataset.blogId;
+      button.addEventListener('click', () => {
+        displayComments(blogId);
+
+
+      });
+    });
+
+    commentForms.forEach((form) => {
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const blogId = form.dataset.blogId;
+        const formData = new FormData(form);
+        const commenterName = formData.get('commenterName');
+        const commentText = formData.get('commentText');
+
+        fetch(`/api/comments/${blogId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            commenterName,
+            commentText,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            // Clear the comment form after submission
+            form.reset();
+            // Refresh the comments section to display the new comment
+            displayComments(blogId);
+          })
+          .catch((error) => {
+            console.error('Error submitting comment:', error);
+          });
+      });
+    });
+
+    commentButtons.forEach(button => {
+      button.addEventListener('click', event => {
+        const blogId = event.target.dataset.blogId;
+        const correspondingForm = document.querySelector(`.comment-form[data-blog-id="${blogId}"]`);
+        const correspondingComments = document.querySelector(`.comments-section[data-blog-id="${blogId}"]`);
+
+        // Toggle the "hidden" attribute to show/hide the form and comments
+        correspondingForm.hidden = !correspondingForm.hidden;
+        correspondingComments.hidden = !correspondingComments.hidden;
+
+        if (!correspondingComments.hidden) {
+          displayComments(blogId);
+        }
+      });
+    });
+
+    const createblog=document.getElementById('createblog');
+    const createblogform=document.getElementById('createblogform');
+    const modalOverlay=document.getElementById('modalOverlay');
+    const modalClose=document.getElementById('modalClose');
+
+    createblog.addEventListener("click",function(event){
+      event.preventDefault();
+      modalOverlay.style.display="flex";
+    })
+    modalClose.addEventListener("click", function () {
+        modalOverlay.style.display = "none";
+      });
+  });
+
+
+</script>
 </html>

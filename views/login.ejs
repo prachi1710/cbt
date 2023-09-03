@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Roboto+Slab:wght@300;400;500&display=swap"
+        rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <!-- <link rel="stylesheet" href="/public/css/login.css"> -->
+    <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="../images/blogCanvas.ico">
+</head>
+
+<body>
+    <div id="container">
+        <form action="/login" method="POST" id="form2" novalidate autocomplete="off">
+            <div class="main">
+                <h1>Login</h1>
+            </div>
+            <div class="login">
+                <div class="inputs">
+                  <input type="text" name="lemail" id="lemail" required placeholder="" >
+                    <label><i class="fa fa-user" aria-hidden="true"></i> User id</label>
+                </div>
+                <div class="inputs">
+                    <input type="password" name="lpassword" id="lpassword" required placeholder="">
+                    <label><i class="fa fa-key" aria-hidden="true"></i> Password</label>
+                </div>
+                <button id="btn-1" type="submit" value="login">Log In <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                <div class="end">
+                    <h5>New user <i class="fa fa-user" aria-hidden="true"></i>?<a href="/register"> Sign up now</a></h5>
+                </div>
+
+            </div>
+
+
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+    <script>
+        document.getElementById('form2').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const email = document.getElementById('lemail').value;
+            const password = document.getElementById('lpassword').value;
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lemail: email, lpassword: password })
+            })
+                .then(response => {
+                    if (response.status === 400 || response.status === 401) {
+                        return response.json(); // Parse the JSON response
+                    }
+                    else if(response.status===200){
+                        return response.json();
+                    }
+                    else {
+                        throw new Error("Unexpected response");
+                    }
+                })
+                .then(data => {
+                    // Display the error message using toastr
+                    if (data.error) {
+                        toastr.error(data.error);
+                    } else {
+                        toastr.success("logged in");
+                        window.location.href='/index';
+                    }
+                })
+                .catch(error => {
+                    console.log("error occurred", error);
+                });
+        });
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Dashboard</title>
+  <link rel="icon" type="image/x-icon" href="../images/blogCanvas.ico">
+</head>
+
+<body>
+  <nav>
+    <div class="logo">
+      <img src="/images/blogCanvas.png" alt="Logo" class="logo-icon">
+      <h3>blog<span>Canvas</span></h3>
+    </div>
+    <!-- <h1 style="color: white; ">blogCanvas</h1> -->
+    <ul class="navigation">
+      <div class="search-container">
+        <form action="/search" method="get">
+          <input type="text" placeholder="Search blogs..." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#blogs" class="nav-link">Blogs</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li><a href="/dashboard" class="nav-link" id="myProfileLink">My Profile</a></li>
+      <form action="/logout" method="get">
+        <button id="logout" type="submit" value="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+      </form>
+    </ul>
+    <!-- <button class="burger-menu" id="burger-menu">
+          <ion-icon class="bars" name="menu-outline"></ion-icon>
+        </button> -->
+  </nav>
+  <form action="/dashboard" method="get">
+    <div class="container">
+      <div class="profilepic">
+        <div class="profilepicbox">
+          <input type="file" name="profilepic" id="upic">
+        </div>
+      </div>
+      <div class="info">
+        <h3>Basic information <i class="fa fa-info-circle" aria-hidden="true"></i>: <button type="submit" id="edit">edit</button></h3>
+        <h4>Name: <%= users[0].name %>
+        </h4>
+        <h4>Email: <%= users[0].email %>
+        </h4>
+        <h4>Mobile: <%= users[0].mobile %>
+        </h4>
+        <h4>Password: <button class="change" id="changepass">Change password</button>
+          <div id="change"></div>
+        </h4>
+        <h4>D.O.B: <%= users[0].dob %>
+        </h4>
+        <h4>Gender: <%= users[0].gender %>
+        </h4>
+      </div>
+
+    </div>
+  </form>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-container">
+      <form action="/update_info" method="post" class="update" id="updateinfo"></form>
+      <h3>Update your information</h3>
+      <h4>Name:
+        <input type="text" name="name" value="<%= users[0].name %>" readonly>
+      </h4>
+      <h4>Email:
+        <input type="email" name="email" value="<%= users[0].email %>" readonly>
+      </h4>
+      <h4>Mobile:
+        <input type="tel" name="mobile" value="<%= users[0].mobile %>" readonly>
+      </h4>
+      <h4>D.O.B:
+        <input type="date" name="dob"
+          value="<%= users[0].dob ? users[0].dob.toISOString().substr(0, 10) : '2000-01-01' %>" />
+      </h4>
+      <h4>Gender:
+        <select id="gender" name="gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="others">Others</option>
+        </select>
+      </h4>
+      <h4>
+        <button type="submit" id="update">Done</button>
+      </h4>
+      </form>
+      <span class="modal-close" id="modalClose">&times;</span>
+
+    </div>
+  </div>
+
+  <section id="#contact">Footer Example 4</section>
+  <footer class="footer-distributed">
+
+    <div class="footer-left">
+
+      <h3>blog<span>Canvas</span></h3>
+
+      <p class="footer-links">
+        <a href="#" class="link-1">Home</a>
+
+        <a href="#blogs">Blogs</a>
+
+        <a href="#">Faq</a>
+
+        <a href="#contact">Contact</a>
+      </p>
+
+      <p class="footer-company-name">blogCanvas © 2023</p>
+    </div>
+
+    <div class="footer-center">
+
+      <div>
+        <i class="fa fa-map-marker"></i>
+        <p><span>xyz</span> Kolkata,India</p>
+      </div>
+
+      <div>
+        <i class="fa fa-phone"></i>
+        <p>+35465767685</p>
+      </div>
+
+      <div>
+        <i class="fa fa-envelope"></i>
+        <p><a href="mailto:kumari.prachi1710@gmail.com">Send Mail</a></p>
+      </div>
+
+    </div>
+
+    <div class="footer-right">
+
+      <p class="footer-company-about">
+        <span>About</span>
+        Discover a vibrant blogging world where you can log in, write your own blogs, and easily manage them. Connect with others by reading and commenting on their posts. Create your unique profile with a picture to make it truly yours. It's a place to express, connect, and explore through the power of words and images. Join us and start sharing your stories today!
+      </p>
+
+      <div class="footer-icons">
+
+        <a href="https://www.facebook.com/profile.php?id=100006812265580"><i class="fa fa-facebook"></i></a>
+        <a href="https://twitter.com/Prachi51966081"><i class="fa fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/in/prachi-kumari-1b8184201/"><i class="fa fa-linkedin"></i></a>
+        <a href="https://github.com/prachi1710"><i class="fa fa-github"></i></a>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const myProfileLink = document.getElementById("myProfileLink");
+
+      // Check if the current URL matches the profile page
+      if (window.location.pathname === "/dashboard") {
+        myProfileLink.classList.add("active"); // Add the "active" class
+      }
+
+      const element = document.getElementById("changepass");
+      element.addEventListener("click", myFunction);
+
+      function myFunction(event) {
+        event.preventDefault();
+        document.getElementById('change').innerHTML = `
+      <form action="/update_password" method="post" id="changepassform">
+        <div class="changepassword">
+          <input type="password" id="newpass" name="newpass" placeholder="Enter new password">
+          <input type="password" id="confirmpass" name="confirmpass" placeholder="Confirm password">
+          <button type="submit" id="submitpass" value="password">Change password</button>
+        </div>
+      </form>
+    `;
+        function checkpass(newpass, confipas) {
+          if (newpass === confipas) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }
+        document.getElementById("changepassform").addEventListener('submit', function (event) {
+          event.preventDefault();
+          const newpass = document.getElementById('newpass').value;
+          const confipass = document.getElementById('confirmpass').value;
+          // if (!checkpass(newpass, confipass)) {
+          //   toastr.error("Passwords do not match!");
+          //   return;
+          // }
+          const data = {
+            newpass: newpass,
+            confirmpass: confipass
+          };
+          fetch('/update_password', {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+            .then(response => {
+              if (response.status === 400) {
+                return response.json(); // Parse the JSON response
+              }
+              else if (response.status === 200) {
+                return response.json();
+              }
+              else if (response.status === 500) {
+                return response.json();
+              }
+              else {
+                throw new Error("Unexpected response");
+              }
+            })
+            .then(data => {
+              // Display the error message using toastr
+              if (data.error) {
+                toastr.error(data.error);
+              } else {
+                toastr.success("Password changed successfully");
+                window.location.href = '/dashboard';
+              }
+            })
+            .catch(error => {
+              console.log("error occurred", error);
+            });
+        });
+
+      }
+
+      //update information
+      const updateinfo = document.getElementById("updateinfo");
+      const modalClose = document.getElementById("modalClose");
+      const modalOverlay = document.getElementById("modalOverlay");
+      const updatebtn = document.getElementById("update");
+      const edit = document.getElementById("edit");
+      edit.addEventListener("click", function (event) {
+        event.preventDefault();
+        modalOverlay.style.display = "flex";
+      });
+      modalClose.addEventListener("click", function () {
+        modalOverlay.style.display = "none";
+      });
+      updatebtn.addEventListener("click", function (event) {
+        const dobInput = document.querySelector('[name="dob"]');
+        const dobValue = dobInput.value;
+
+        const genderSelect = document.getElementById('gender');
+        const selectedGender = genderSelect.value;
+
+        updateinfo.submit();
+      });
+      const homeLink = document.querySelector(".nav-link[href='#home']");
+      homeLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = "/index"; // Update the URL to match your index page
+      });
+    });
+
+  </script>
+</body>
+
+</html>

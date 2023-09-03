@@ -1,7 +1,7 @@
 
-
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap');
   body {
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Signika', sans-serif;
     background: linear-gradient(0.25turn, #EAF6FF, #FFFFE6, #FFF4E6);
   
   
@@ -14,12 +14,12 @@
     text-align: center;
     padding: 20px 16px;
     text-decoration: none;
-    background: linear-gradient(#e66465, #9198e5);
+    background-color:  #802BB1;;
     border: none;
   }
   
   #btn-3:hover {
-    background: linear-gradient(45deg, blue, red);
+    background-color: #d3531c;
     cursor: pointer;
   }
   #btn-3{
@@ -28,6 +28,7 @@
   .input{
     margin-bottom: 20px;
     font-size: 25px;
+    font-family: 'Signika', sans-serif;
   }
   
   .input [type="text"]{
@@ -36,6 +37,7 @@
     border-radius: 5px;
     font-weight: 400;
     margin-left: 15px;
+    font-family: 'Signika', sans-serif;
     
   }
   
@@ -50,6 +52,7 @@
     border-radius: 4px;
     box-sizing: border-box; 
     margin-top: 15px;
+    font-family: 'Signika', sans-serif;
   }
   
   /* Optional: Add styles for focus and hover state */
@@ -63,10 +66,7 @@
   }
   
   h2{
-    background: -webkit-linear-gradient(blue, red);
-    background-clip: border-box;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color:  #802BB1;
     font-size: 40px;
   }
   
