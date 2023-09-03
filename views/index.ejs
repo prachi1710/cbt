@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="/public/css/index.css"> -->
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+
+    <title>Personal Blogs</title>
+</head>
+
+<body>
+    <div class="main">
+        <ul class="ul-main">
+            <li class="li-main"><a href="#home">Home</a></li>
+            <li class="li-main"><a href="#blogs">Blogs</a></li>
+            <li class="li-main"><a href="#contact">Contact</a></li>
+            <li class="li-main" style="float:right"><a class="active" href="#about">About</a></li>
+            <form action="/logout" method="get">
+                <button style="float: right;" class="active" id="logout" type="submit" value="logout">Logout</button>
+            </form>
+        </ul>
+        <h2>Create New Blog</h2>
+
+        <!-- Blog Form -->
+        <form action="/create-blog" method="post">
+            <div class="input">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" required placeholder="Enter Your Name">
+            </div>
+            <div class="input">
+                <label for="type">Type</label>
+                <input type="text" name="type" id="type" required placeholder="Enter Blog Type">
+            </div>
+            <div class="input">
+                <label for="topic">Topic</label>
+                <input type="text" name="topic" id="topic" required placeholder="Enter Blog Topic">
+            </div>
+            <div class="input">
+                <label for="content">Content</label>
+                <textarea name="content" id="content" required placeholder="Enter Blog Content"></textarea>
+            </div>
+            <div class="button">
+                <button id="create" type="submit" value="create">Create Blog</button>
+            </div>
+        </form>
+
+
+        <!-- Display Existing Blogs -->
+        <h2>Existing Blogs</h2>
+        <div class="blogs">
+            <ul class="ul-blogs">
+                <% blogs.forEach(blog=> { %>
+                    <li class="li-blogs">
+                        <strong>Name:</strong>
+                        <%= blog.name %><br>
+                            <strong>Type:</strong>
+                            <%= blog.type %><br>
+                                <strong>Topic:</strong>
+                                <%= blog.topic %><br>
+                                    <strong>Content:</strong><br>
+                                    <p>
+                                        <%= blog.content %>
+                                    </p>
+    
+                                    <!-- Update Button -->
+                                    <div class="button-container">
+                                        <form action="/update-blog/<%= blog.id %>" method="get">
+                                          <button id="update" type="submit">Update</button>
+                                        </form>
+                                        <form action="/delete-blog/<%= blog.id %>" method="post">
+                                          <button id="delete" type="submit">Delete</button>
+                                        </form>
+                                      </div>
+                    </li>
+                    <% }) %>
+            </ul>
+        </div>
+       
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/signup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Roboto+Slab:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Sign Up</title>
+</head>
+
+<body>
+    <div class="container">
+        <form action="/register" method="POST" id="form1">
+        <div class="main"><h1>Sign Up</h1></div>
+        
+            <div class="signup">
+                <div class="input">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" required placeholder="Enter Your Name">
+                </div>
+                <div class="input">
+                    <label for="Email Id">Email</label>
+                    <input type="text" name="email" id="email" required placeholder="Enter Your Email ID">
+                </div>
+                <div class="input">
+                    <label for="phone">Mobile No.</label>
+                    <input type="tel" name="mobile" id="mobile" required placeholder="Enter Your Mobile no.">
+                </div>
+                <div class="input">
+                    <label for="Password">Choose your password</label>
+                    <input type="password" name="password" id="password" required placeholder="Enter your password">
+                </div>
+                <div class="button">
+                    <button id="btn-2" type="submit" value="register">Sign up</button>
+                </div>
+                <div class="end">
+                    <h5>Already a user?<a href="/login"> Login Now</a></h5>
+                </div>
+                
+            </div>
+    </div>
+</form>
+
+    <!-- <script src="database.js"></script> -->
+</body>
+
+</html>

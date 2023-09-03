@@ -1,0 +1,160 @@
+body {
+  font-family: 'Roboto Slab', serif;
+  background: linear-gradient(0.25turn, #EAF6FF, #FFFFE6, #FFF4E6);
+  /* background: #2D283E; */
+  background: #D1D7E0;
+
+
+}
+
+.ul-main {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #2D283E;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: white;
+  /* background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c); */
+  /* background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
+
+li a:hover {
+  text-decoration: none;
+  background: -webkit-linear-gradient(blue, red);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+#logout,#create {
+
+  color: white;
+  text-align: center;
+  padding: 20px 16px;
+  text-decoration: none;
+  background:  #802BB1;
+  border: none;
+}
+
+#logout:hover,#create:hover {
+  background: #4C495D;
+  cursor: pointer;
+}
+#create{
+  border-radius: 5px;
+  padding: 20px 40px;
+  margin: 0px;
+}
+.input{
+  margin-bottom: 20px;
+  font-size: 25px;
+}
+
+.input [type="text"]{
+  font-size: 17px;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: 400;
+  margin-left: 15px;
+}
+
+
+textarea {
+  width: 100%; 
+  height: 200px; 
+  resize: vertical;
+  padding: 8px; 
+  font-size: 20px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  box-sizing: border-box; 
+  margin-top: 15px;
+}
+text:focus{
+  border-color: #007bff; /* Change border color on focus */
+  outline: none; /* Remove the default outline */
+}
+/* Optional: Add styles for focus and hover state */
+textarea:focus {
+  border-color: #007bff; /* Change border color on focus */
+  outline: none; /* Remove the default outline */
+}
+
+textarea:hover {
+  border-color: #555; /* Change border color on hover */
+}
+
+h2{
+  color: #802BB1;
+  /* background: -webkit-linear-gradient(blue, red);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+  font-size: 40px;
+}
+
+
+.blogs{
+  background-color: white;
+}
+
+#delete,
+#update {
+    text-align: center;
+    /* padding: 20px 16px; */
+    text-decoration: none;
+    background: #802BB1;
+    /* margin-bottom: 10px; */
+    width: 100px;
+    padding: 12px 24px;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+}
+
+#delete:hover,
+#update:hover {
+    /* background: linear-gradient(45deg, blue, red); */
+    background: #4C495D;
+    cursor: pointer;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.li-blogs{
+  font-family: 'Roboto Slab', serif;
+}

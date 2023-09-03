@@ -1,0 +1,39 @@
+<!-- views/update_blog.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="/public/css/update.css"> -->
+    <link rel="stylesheet" type="text/css" href="/css/update.css">
+    <title>Update Blog</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Update Blog</h2>
+        <form action="/update-blog/<%= blog.id %>" method="post">
+            <div class="input">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" required value="<%= blog.name %>">
+            </div>
+            <div class="input">
+                <label for="type">Type</label>
+                <input type="text" name="type" id="type" required value="<%= blog.type %>">
+            </div>
+            <div class="input">
+                <label for="topic">Topic</label>
+                <input type="text" name="topic" id="topic" required value="<%= blog.topic %>">
+            </div>
+            <div class="input">
+                <label for="content">Content</label>
+                <textarea name="content" id="content" required><%= blog.content %></textarea>
+            </div>
+            <div class="button">
+                <button id="btn-3" type="submit">Update Blog</button>
+                
+            </div>
+        </form>
+    </div>
+   
+</body>
+</html>

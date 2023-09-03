@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Roboto+Slab:wght@300;400;500&display=swap" rel="stylesheet">
+        <!-- <link rel="stylesheet" type="text/css" href="/public/css/login.css"> -->
+        <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body>
+    <div id="container">
+        <form action="/login" method="POST" id="form2">
+            <div class="main"><h1>Login</h1></div>
+            <div class="login">
+                <div class="input">
+                    <label for="Email Id">Email</label>
+                    <input type="text" name="lemail" id="lemail" required placeholder="Enter Your Email ID">
+                </div>
+                <div class="input">
+                    <label for="Password">Enter your password</label>
+                    <input type="password" name="lpassword" id="lpassword" required placeholder="Enter your password">
+                </div>
+                <button id="btn-1" type="submit" value="login">Log In</button>
+                <div class="end">
+                    <h5>New user?<a href="/register"> Sign up now</a></h5>
+                </div>
+                
+            </div>
+            
+           
+        </form>
+    </div>
+    <script>
+        // Check if the page is loaded from the cache (when pressing back button)
+        if (performance.navigation.type === 2) {
+          // Perform a GET request to the server to check if the user is still authenticated
+          fetch('/check-auth-status')
+            .then((response) => {
+              if (response.status === 401) {
+                // If the user is not authenticated, redirect to the login page
+                window.location.href = '/login';
+              }
+            })
+            .catch((error) => {
+              console.error('Error checking authentication status:', error);
+            });
+        }
+      </script>
+    <!-- <script src="database.js"></script> -->
+</body>
+</html>
