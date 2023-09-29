@@ -9,7 +9,8 @@ body {
   font-family: 'Signika', sans-serif;
   /* background: linear-gradient(0.25turn, #EAF6FF, #FFFFE6, #FFF4E6); */
   /* background: #2D283E; */
-  background: #fafafb;
+  /* background: #fafafb; */
+  background-color: rgba(0, 0, 0, 0.05);
 }
 html {
   scroll-behavior: smooth;
@@ -148,6 +149,7 @@ li a:hover {
   background:  #802BB1;
   border: none;
   border-radius: 0.375rem;
+  transition: 1s;
 }
 
 #logout:hover,#create:hover {
@@ -218,6 +220,14 @@ h2{
 .blogs{
   background-color: white;
   margin-top: 25px;
+  
+}
+.ul-blogs .li-blogs{
+  border: 1px solid white;
+  padding: 30px 60px;
+  background-color: white;
+  margin-bottom: 20px;
+  border-radius: 0.375rem;
 }
 
 #delete,
@@ -237,6 +247,7 @@ h2{
     border-radius: 5px;
     cursor: pointer;
     color: #fff;
+    transition: 1s;
 }
 
 #delete:hover,
@@ -334,6 +345,9 @@ h2{
   background-color: #007bff;
 }
 
+/* .nav-link{
+  display: flex;
+} */
 nav {
   /* padding: 1.2rem 1rem; */
   position: sticky;
@@ -584,6 +598,7 @@ nav {
   font-weight: bold;
   font-size: 20px;
   font-family: 'Signika', sans-serif;
+  transition: 1s;
 }
 
 #createblog:hover{
@@ -633,5 +648,4 @@ left: 0;
 color: #03e9f4;
 font-size: 12px;
 }
-
 

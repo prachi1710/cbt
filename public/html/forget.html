@@ -1,0 +1,43 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/forget.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="inputs">
+        <label for="email">Enter your email id to send verification code</label>
+        <input type="text" name="email" id="email" required placeholder="" autocomplete="new-email">
+    </div>
+    <button type="submit" id="btn">Send code</button>
+
+
+   
+    <div class="modal" id="modal">
+        <div class="enterotp" id="enterotp">Enter otp</div>
+        <input type="text" name="otp" id="otp">
+        <button type="submit" id="done">Done</button>
+    </div>
+    <script src="/mail.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sendcode=document.getElementById('btn');
+            const modal=document.getElementById('modal');
+            const done=document.getElementById('done');
+
+            sendcode.addEventListener("click",function(e){
+                e.preventDefault();
+                modal.style.display="flex";
+            })
+            done.addEventListener("click",function(){
+                modal.style.display="none";
+            })
+        })
+    </script>
+</body>
+
+</html> -->

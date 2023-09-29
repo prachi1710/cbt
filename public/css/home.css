@@ -126,5 +126,10 @@ button {
     color: #fff;
  
 }
-
+/* @media(max-width:734px)
+{
+    h1{
+        font-size: 2rem;
+    }
+} */
 

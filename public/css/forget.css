@@ -1,0 +1,31 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    display: none;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+  
+  .enterotp {
+    margin-bottom: 10px;
+  }
+  
+  /* You can style the modal's content as needed */
+  #otp {
+    width: 100px;
+    padding: 10px;
+  }
+  
+  #done {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }

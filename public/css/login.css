@@ -77,7 +77,9 @@ body{
   background: transparent;
   font-family: 'Signika', sans-serif;
 }
-
+.forget{
+    font-size: 13px;
+}
 .inputs label{
     position: absolute;
     top:0;

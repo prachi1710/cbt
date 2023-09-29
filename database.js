@@ -61,6 +61,9 @@ app.get('/register', function (req, res) {
 app.get('/login', function (req, res) {
   res.sendFile(__dirname + '/public/html/login.html');
 });
+app.get('/forget',function(req,res){
+  res.sendFile(__dirname+'/public/html/forget.html');
+});
 app.get('/node_modules/toaster-js/default.scss', (req, res) => {
   res.header('Content-Type', 'text/css');
   res.sendFile(__dirname + '/node_modules/toaster-js/default.scss');
@@ -238,10 +241,11 @@ app.get('/update-blog/:id',isAuthenticated, function (req, res) {
       if (err) throw err;
       if (result.length === 0) {
         // Handle the case when the blog with the provided ID does not exist
+        res.status(404).send('You dont have permission to update this blog');
         console.log("you dont have permission to update this blog!");
         // You can render an error page or redirect the user to another page if needed.
         // For simplicity, let's redirect them to the homepage.
-        res.redirect('/');
+        // res.redirect('/');
       } else {
         // Render the update_blog.ejs view with the blog details
         res.render('update_blog', { blog: result[0] });
@@ -274,21 +278,61 @@ app.post('/update-blog/:id',isAuthenticated, function (req, res) {
   });
 });
 
-app.get('/delete-blog/:id', isAuthenticated,function (req, res) {
+// app.get('/delete-blog/:id', isAuthenticated,function (req, res) {
+//   var id = req.params.id;
+
+//   con.getConnection(function (err) {
+//     if (err) throw err;
+//     var sql = "DELETE FROM blogs WHERE id=?";
+//     con.query(sql, [id], function (err, result) {
+//       if (err) throw err;
+//       if(result.length===0)
+//       {
+//         res.status(404).send("You dont have permission to delete this blog");
+//       }
+//       else
+//       {
+//         console.log("Blog deleted successfully!");
+//       var blogsSql = "SELECT * FROM blogs";
+//       con.query(blogsSql, function (err, blogsResult) {
+//         if (err) throw err;
+//         // Render the index.html file with the updated list of blogs
+//         res.render('index', { blogs: blogsResult });
+//       });
+//       }
+      
+//     });
+//   });
+// });
+app.get('/delete-blog/:id', isAuthenticated, function (req, res) {
   var id = req.params.id;
+  var userId = req.session.userID; // Assuming you have a way to get the logged-in user's ID
 
   con.getConnection(function (err) {
     if (err) throw err;
-    var sql = "DELETE FROM blogs WHERE id=?";
-    con.query(sql, [id], function (err, result) {
+
+    // Check if the user is authorized to delete this blog
+    var authorizationSql = "SELECT id FROM blogs WHERE id=? AND user_id=?";
+    con.query(authorizationSql, [id, userId], function (err, authResult) {
       if (err) throw err;
-      console.log("Blog deleted successfully!");
-      var blogsSql = "SELECT * FROM blogs";
-      con.query(blogsSql, function (err, blogsResult) {
-        if (err) throw err;
-        // Render the index.html file with the updated list of blogs
-        res.render('index', { blogs: blogsResult });
-      });
+
+      if (authResult.length === 0) {
+        res.status(403).send("You don't have permission to delete this blog");
+      } else {
+        // The user is authorized, proceed with deletion
+        var sql = "DELETE FROM blogs WHERE id=?";
+        con.query(sql, [id], function (err, result) {
+          if (err) throw err;
+
+          console.log("Blog deleted successfully!");
+          var blogsSql = "SELECT * FROM blogs";
+          con.query(blogsSql, function (err, blogsResult) {
+            if (err) throw err;
+            // Render the index.html file with the updated list of blogs
+            res.render('index', { blogs: blogsResult });
+          });
+        });
+      }
     });
   });
 });
@@ -446,13 +490,11 @@ app.post('/update_password', isAuthenticated,function (req, res) {
 
   bcrypt.hash(newpass, 10, function (err, hashedpass) {
     if (err) {
-      console.log("errorrrrr")
       return res.status(500).json({ error: 'An error occurred while updating the password.' });
     }
 
     const lemail = req.session.lemail; // Assuming you have the user's email in the session
     const updatepass = 'UPDATE users SET password=? WHERE email=?';
-    console.log(updatepass);
     con.query(updatepass, [hashedpass, lemail], function (err, result) {
       if (err) {
         return res.status(500).json({ error: 'An error occurred while updating the password.' });
@@ -535,5 +577,5 @@ app.post('/update_info', isAuthenticated,function (req, res) {
 
 
 app.listen(5000, () => {
-  console.log('Server started at port no. 5000');
+  console.log('Server started at http://127.0.0.1:5000/');
 });

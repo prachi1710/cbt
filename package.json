@@ -8,6 +8,7 @@
     "express-session": "^1.17.3",
     "express-toastr": "^2.0.2",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.9.5",
     "toaster-js": "^2.2.3",
     "toastr": "^2.1.4"
   }

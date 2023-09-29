@@ -4,9 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
   <title>Dashboard</title>
   <link rel="icon" type="image/x-icon" href="../images/blogCanvas.ico">
 </head>
@@ -30,7 +37,8 @@
       <li><a href="#contact" class="nav-link">Contact</a></li>
       <li><a href="/dashboard" class="nav-link" id="myProfileLink">My Profile</a></li>
       <form action="/logout" method="get">
-        <button id="logout" type="submit" value="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+        <button id="logout" type="submit" value="logout">Logout <i class="fa fa-sign-out"
+            aria-hidden="true"></i></button>
       </form>
     </ul>
     <!-- <button class="burger-menu" id="burger-menu">
@@ -64,33 +72,49 @@
     </div>
   </form>
 
+  <!-- change password -->
+  <div class="modal-overlay1" id="modalOverlayChangePass">
+    <div class="modal-container1">
+      <form action="/update_password" method="post" class="updatepassword" id="updatepassword">
+        <label for="newpass">New Password:</label>
+        <input type="password" id="newpass" name="newpass" required>
+        <br>
+        <label for="confirmpass">Confirm Password:</label>
+        <input type="password" id="confirmpass" name="confirmpass" required>
+        <br>
+        <button type="submit">Submit</button>
+      </form>
+      <span class="modal-close1" id="modalClose1">&times;</span>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-container">
-      <form action="/update_info" method="post" class="update" id="updateinfo"></form>
-      <h3>Update your information</h3>
-      <h4>Name:
-        <input type="text" name="name" value="<%= users[0].name %>" readonly>
-      </h4>
-      <h4>Email:
-        <input type="email" name="email" value="<%= users[0].email %>" readonly>
-      </h4>
-      <h4>Mobile:
-        <input type="tel" name="mobile" value="<%= users[0].mobile %>" readonly>
-      </h4>
-      <h4>D.O.B:
-        <input type="date" name="dob"
-          value="<%= users[0].dob ? users[0].dob.toISOString().substr(0, 10) : '2000-01-01' %>" />
-      </h4>
-      <h4>Gender:
-        <select id="gender" name="gender">
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="others">Others</option>
-        </select>
-      </h4>
-      <h4>
-        <button type="submit" id="update">Done</button>
-      </h4>
+      <form action="/update_info" method="post" class="update" id="updateinfo">
+        <h3>Update your information</h3>
+        <h4>Name:
+          <input type="text" name="name" value="<%= users[0].name %>" readonly>
+        </h4>
+        <h4>Email:
+          <input type="email" name="email" value="<%= users[0].email %>" readonly>
+        </h4>
+        <h4>Mobile:
+          <input type="tel" name="mobile" value="<%= users[0].mobile %>" readonly>
+        </h4>
+        <h4>D.O.B:
+          <input type="date" name="dob"
+            value="<%= users[0].dob ? users[0].dob.toISOString().substr(0, 10) : '2000-01-01' %>" />
+        </h4>
+        <h4>Gender:
+          <select id="gender" name="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="others">Others</option>
+          </select>
+        </h4>
+        <h4>
+          <button type="submit" id="update">Done</button>
+        </h4>
       </form>
       <span class="modal-close" id="modalClose">&times;</span>
 
@@ -140,7 +164,10 @@
 
       <p class="footer-company-about">
         <span>About</span>
-        Discover a vibrant blogging world where you can log in, write your own blogs, and easily manage them. Connect with others by reading and commenting on their posts. Create your unique profile with a picture to make it truly yours. It's a place to express, connect, and explore through the power of words and images. Join us and start sharing your stories today!
+        Discover a vibrant blogging world where you can log in, write your own blogs, and easily manage them. Connect
+        with others by reading and commenting on their posts. Create your unique profile with a picture to make it truly
+        yours. It's a place to express, connect, and explore through the power of words and images. Join us and start
+        sharing your stories today!
       </p>
 
       <div class="footer-icons">
@@ -170,78 +197,88 @@
         myProfileLink.classList.add("active"); // Add the "active" class
       }
 
+      const updatepass = document.getElementById('updatepassword');
+      const modalOverlayChangePass = document.getElementById('modalOverlayChangePass');
       const element = document.getElementById("changepass");
-      element.addEventListener("click", myFunction);
-
-      function myFunction(event) {
+      const modalClose1 = document.getElementById("modalClose1");
+      element.addEventListener("click", function (event) {
         event.preventDefault();
-        document.getElementById('change').innerHTML = `
-      <form action="/update_password" method="post" id="changepassform">
-        <div class="changepassword">
-          <input type="password" id="newpass" name="newpass" placeholder="Enter new password">
-          <input type="password" id="confirmpass" name="confirmpass" placeholder="Confirm password">
-          <button type="submit" id="submitpass" value="password">Change password</button>
-        </div>
-      </form>
-    `;
-        function checkpass(newpass, confipas) {
-          if (newpass === confipas) {
-            return true;
-          }
-          else {
-            return false;
-          }
-        }
-        document.getElementById("changepassform").addEventListener('submit', function (event) {
-          event.preventDefault();
-          const newpass = document.getElementById('newpass').value;
-          const confipass = document.getElementById('confirmpass').value;
-          // if (!checkpass(newpass, confipass)) {
-          //   toastr.error("Passwords do not match!");
-          //   return;
-          // }
-          const data = {
-            newpass: newpass,
-            confirmpass: confipass
-          };
-          fetch('/update_password', {
-            method: 'POST',
-            headers: {
-              'content-type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          })
-            .then(response => {
-              if (response.status === 400) {
-                return response.json(); // Parse the JSON response
-              }
-              else if (response.status === 200) {
-                return response.json();
-              }
-              else if (response.status === 500) {
-                return response.json();
-              }
-              else {
-                throw new Error("Unexpected response");
-              }
-            })
-            .then(data => {
-              // Display the error message using toastr
-              if (data.error) {
-                toastr.error(data.error);
-              } else {
-                toastr.success("Password changed successfully");
-                window.location.href = '/dashboard';
-              }
-            })
-            .catch(error => {
-              console.log("error occurred", error);
-            });
-        });
+        modalOverlayChangePass.style.display = "flex";
+      });
 
+      modalClose1.addEventListener("click", function () {
+        modalOverlayChangePass.style.display = "none";
+      });
+
+
+      //   function myFunction(event) {
+      //     event.preventDefault();
+      //     document.getElementById('change').innerHTML = `
+      //   <form action="/update_password" method="post" id="changepassform">
+      //     <div class="changepassword">
+      //       <input type="password" id="newpass" name="newpass" placeholder="Enter new password">
+      //       <input type="password" id="confirmpass" name="confirmpass" placeholder="Confirm password">
+      //       <button type="submit" id="submitpass" value="password">Change password</button>
+      //     </div>
+      //   </form>
+      // `;
+      function checkpass(newpass, confipas) {
+        if (newpass === confipas) {
+          return true;
+        }
+        else {
+          return false;
+        }
       }
+      updatepass.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const newpass = document.getElementById('newpass').value;
+        const confipass = document.getElementById('confirmpass').value;
+        // if (!checkpass(newpass, confipass)) {
+        //   toastr.error("Passwords do not match!");
+        //   return;
+        // }
+        const data = {
+          newpass: newpass,
+          confirmpass: confipass
+        };
+        fetch('/update_password', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+          .then(response => {
+            if (response.status === 400 || response.status === 500) {
+              return response.json(); // Parse the JSON response
+            }
+            else if (response.status === 200) {
+              return response.json();
+            }
+            else {
+              throw new Error("Unexpected response");
+            }
+          })
+          .then(data => {
+            // Display the error message using toastr
+            if (data.error) {
+              toastr.error(data.error);
+            } else {
+              toastr.success(data.success);
+              // window.location.href = '/dashboard';
+            }
+          })
+          .catch(error => {
+            console.log("error occurred", error);
+          });
+      });
+
+
 
       //update information
+
+
       const updateinfo = document.getElementById("updateinfo");
       const modalClose = document.getElementById("modalClose");
       const modalOverlay = document.getElementById("modalOverlay");
@@ -249,9 +286,11 @@
       const edit = document.getElementById("edit");
       edit.addEventListener("click", function (event) {
         event.preventDefault();
+        console.log("edit button clicked");
         modalOverlay.style.display = "flex";
       });
       modalClose.addEventListener("click", function () {
+        console.log("clicked");
         modalOverlay.style.display = "none";
       });
       updatebtn.addEventListener("click", function (event) {
